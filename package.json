@@ -15,6 +15,9 @@
   "bugs": {
     "url": "https://github.com/shaialon/elasticsearch-gdelt/issues"
   },
+  "engines": {
+    "node": "5.1.0"
+  },
   "homepage": "https://github.com/shaialon/elasticsearch-gdelt#readme",
   "dependencies": {
     "csv-parse": "^1.0.0",
