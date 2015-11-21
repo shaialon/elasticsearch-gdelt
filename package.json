@@ -1,0 +1,25 @@
+{
+  "name": "elasticsearch-gdelt",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/shaialon/elasticsearch-gdelt.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/shaialon/elasticsearch-gdelt/issues"
+  },
+  "homepage": "https://github.com/shaialon/elasticsearch-gdelt#readme",
+  "dependencies": {
+    "csv-parse": "^1.0.0",
+    "elasticsearch": "^9.0.1",
+    "lodash": "^3.10.1",
+    "stream-transform": "^0.1.1"
+  }
+}
