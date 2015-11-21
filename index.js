@@ -10,7 +10,16 @@ const fs = require('fs'),
 const indexName = '20151028';
 
 const input = fs.createReadStream(__dirname+'/samples/'+indexName+'.export.CSV');
-const parser = parse({delimiter: '\t'});
 
-input.pipe(process.stdout);
+
+
+const parser = parse({delimiter: '\t'})
+const transformer = transform(function(record, callback){
+        callback(null, record.toString()+"\n");
+}, {parallel: 1});
+
+input.pipe(parser)
+     .pipe(transformer)
+     .pipe(process.stdout);
+
 
