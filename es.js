@@ -1,7 +1,7 @@
 "use strict";
 const elasticsearch = require('elasticsearch');
 
-const sendThreshhold = 500;
+const sendThreshhold = 2000;
 const timerThreshold = 10000;
 
 class esIndexer {

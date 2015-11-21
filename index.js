@@ -6,7 +6,7 @@ const fs = require('fs'),
       parse = require('csv-parse'),
       formatter = require('./gdelt/formatter.js'),
       esIndexer = require('./es.js'),
-      concurrency = 5000;
+      concurrency = 10000;
 
 
 
@@ -24,6 +24,11 @@ const transformer = transform(function(record, callback){
 const elastic_indexer = transform(function(record, callback){
     indexer.indexDoc(record,callback);
 }, {parallel: concurrency});
+
+input.on('end', () => {
+    console.log("Finished reading CSV file.");
+    //  TODO: finish indexing handler...
+});
 
 input.pipe(parser)
      .pipe(transformer)
