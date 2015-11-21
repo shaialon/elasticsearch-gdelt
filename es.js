@@ -112,3 +112,56 @@ class esIndexer {
 };
 
 module.exports = esIndexer;
+
+//Index setup via sense:
+//PUT _template/template_1
+//{
+//    "template": "*",
+//    "order" : 0,
+//    "settings": {
+//    "index.number_of_shards": 1
+//},
+//    "mappings": {
+//    "_default_": {
+//        "dynamic_templates": [
+//            {
+//                "notanalyzed": {
+//                    "match": "*",
+//                    "match_mapping_type": "string",
+//                    "mapping": {
+//                        "type": "string",
+//                        "index": "not_analyzed"
+//                    }
+//                }
+//            }
+//        ]
+//    }
+//}
+//}
+//DELETE elastic_gdelt
+//
+//PUT /elastic_gdelt
+//{
+//    "mappings": {
+//    "event": {
+//        "properties": {
+//            "ActionGeo_Location": {
+//                "type": "geo_point"
+//            },
+//            "Actor1Geo_Location": {
+//                "type": "geo_point"
+//            },
+//            "Actor2Geo_Location": {
+//                "type": "geo_point"
+//            },
+//            "DATEADDED" : {
+//                "type":"date",
+//                    "format": "yyyy-MM-dd"
+//            }
+//        }
+//    }
+//}
+//}
+//
+//
+//GET _cat/indices?v
