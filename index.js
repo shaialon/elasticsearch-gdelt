@@ -2,7 +2,6 @@
 
 // External dependencies
 const fs = require('fs'),
-      _  = require ('lodash'),
       transform = require('stream-transform'),
       parse = require('csv-parse'),
       formatter = require('./gdelt/formatter');
