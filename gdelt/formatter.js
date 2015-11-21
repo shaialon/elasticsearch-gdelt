@@ -4,13 +4,15 @@ const columns = require('./columns'),
       quadclass_names = require('./quadclass_names'),
       eventrootcode_names = require('./eventrootcode_names'),
       eventcode_names = require('./eventcode_names'),
+        rootEventNames = {"0":"No","1":"Yes"},
       _  = require ('lodash');
 
 const cameoToHuman = {
     'QuadClass' : quadclass_names,
     'EventRootCode': eventrootcode_names,
     'EventCode' : eventcode_names,
-    'EventBaseCode' :eventcode_names
+    'EventBaseCode' :eventcode_names,
+    'IsRootEvent' : rootEventNames
 };
 
 const discardedFields = new Set([
