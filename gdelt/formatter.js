@@ -42,7 +42,7 @@ const formatter = function(record){
                 newRecord[action]=columnValue.split(", ");
             }
             else if(_.endsWith(action ,'Geo_Lat') || _.endsWith(action ,'Geo_Long')){
-                // Transform "Actor1Geo_Long":"70", "Actor1Geo_Lat":"30" in elastichsearch geo points Actor1Geo_Location = {lat:30,lon:70}
+                // Transform "Actor1Geo_Long":"70", "Actor1Geo_Lat":"30" into elastichsearch geo points Actor1Geo_Location = {lat:30,lon:70}
                 let newAction = `${action.split('_')[0]}_Location`;
                 if(!newRecord[newAction]){newRecord[newAction] = {};}
                 newRecord[newAction][action.substr(10,3).toLowerCase()] = Number(columnValue);
@@ -57,7 +57,7 @@ const formatter = function(record){
             }
         }
     });
-    return JSON.stringify(newRecord)+'\n';
+    return newRecord;
 }
 
 module.exports = formatter;
