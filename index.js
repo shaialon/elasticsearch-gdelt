@@ -4,7 +4,7 @@
 const fs = require('fs'),
       transform = require('stream-transform'),
       parse = require('csv-parse'),
-      formatter = require('./gdelt/formatter.js'),
+      gdelt_formatter = require('./gdelt/formatter.js'),
       esIndexer = require('./es.js'),
       concurrency = 10000;
 
@@ -17,8 +17,8 @@ const indexer = new esIndexer({_index: 'elastic_gdelt', _type: 'event'});
 const parser = parse({delimiter: '\t'});
 
 
-const transformer = transform(function(record, callback){
-        callback(null, formatter(record));
+const formatter = transform(function(record, callback){
+        callback(null, gdelt_formatter(record));
 }, {parallel: concurrency});
 
 const elastic_indexer = transform(function(record, callback){
@@ -31,7 +31,7 @@ input.on('end', () => {
 });
 
 input.pipe(parser)
-     .pipe(transformer)
+     .pipe(formatter)
      .pipe(elastic_indexer)
      .pipe(process.stdout);
 
