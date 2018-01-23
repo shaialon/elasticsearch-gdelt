@@ -22,8 +22,8 @@
   "dependencies": {
     "adm-zip": "^0.4.7",
     "csv-parse": "^1.0.0",
-    "elasticsearch": "^9.0.1",
-    "lodash": "^3.10.1",
+    "elasticsearch": "^14.0.0",
+    "lodash": "^4.17.4",
     "stream-transform": "^0.1.1"
   }
 }
