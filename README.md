@@ -1,9 +1,14 @@
-*SETUP*
-1.
+## Elasticsearch 6.x + GDELT
+### Get data into ES, display and filter with Kibana
+===
+<img src="https://user-images.githubusercontent.com/3126207/35305518-33f26a60-00a2-11e8-991c-c6b465ef7971.png">
+===
+## Setup
+### 1.
 Download and Run ElasticSearch 6.x from https://www.elastic.co/downloads/elasticsearch
 Download and Run Kibana 6.x from https://www.elastic.co/downloads/kibana
 
-2.
+### 2.
 In Kibana dev console: http://localhost:5601/app/kibana#/dev_tools/console?_g=(), set up an index template.
 This basically tells elastic that by default, we're no looking to analyze any strings for full text search.
 
