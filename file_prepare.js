@@ -1,6 +1,6 @@
 const indexer = require('./indexer');
 
-const dateToFetch= '20180121';
+const dateToFetch= '20180119';
 const ZIP_DIR = `./samples`;
 
 const AdmZip = require('adm-zip'),
@@ -10,6 +10,7 @@ const AdmZip = require('adm-zip'),
 
 const url = `http://data.gdeltproject.org/events/${dateToFetch}.export.CSV.zip`,
      zipName = `./${ZIP_DIR}/${dateToFetch}.export.CSV.zip`;
+     fileDownloadedName = `${ZIP_DIR}/${dateToFetch}.export.CSV`;
 
 function unzipFile(){
     const zip = new AdmZip(zipName);
@@ -46,7 +47,11 @@ download(url,zipName,afterDownload);
 
 function afterDownload(err,res){
   unzipFile(); // Blocking
-  indexer.indexGdeltFile();
+  console.log('Waiting...');
+  setTimeout(()=>{
+	indexer.indexGdeltFile(fileDownloadedName);
+  },6000)
+
 }
 
 
