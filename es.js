@@ -1,5 +1,5 @@
-"use strict";
 const elasticsearch = require('elasticsearch');
+const _  = require ('lodash');
 
 const sendThreshhold = 2000;
 const timerThreshold = 10000;
@@ -9,7 +9,7 @@ class esIndexer {
         var that = this;
         this.client = new elasticsearch.Client({
             host: 'http://localhost:9200',
-            //log: 'trace'
+            // log: 'trace'
         });
         this._index = options._index;
         this._type = options._type;
@@ -41,6 +41,9 @@ class esIndexer {
         this.client.bulk({
             body: batch.bulkData
         }, function (err, resp) {
+		    console.dir(`Arrived. Took: ${resp.took}ms. Errors: ${resp.errors}. Items: ${resp.items.length}`, {colors: true, depth: null});
+		    // console.dir(resp, {colors: true, depth: null});
+
             if(err || !resp || !resp.items || resp.items.length !== batch.callbacks.length) {
                 console.error(err);
                 batch.callbacks.forEach((callback)=>{
@@ -53,7 +56,9 @@ class esIndexer {
             let items = resp.items;
             batch.callbacks.forEach((callback, index)=>{
                 if(callback){
-                    if(items[index].create.status === 201){
+				    // console.dir(items, {colors: true, depth: null});
+
+                    if(_.get(items[index], 'index.status') === 201){
                         callback(err,"");
                         successFull++;
                     }
@@ -103,6 +108,8 @@ class esIndexer {
     //    });
     //}
     indexDoc(data,callback) {
+	    // console.dir(data, {colors: true, depth: null});
+
         this._batches[this._batches.length-1].bulkData.push(this._action,data);
         this._batches[this._batches.length-1].callbacks.push(callback);
         if(this._queueLength() >=  sendThreshhold){

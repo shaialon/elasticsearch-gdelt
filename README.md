@@ -22,8 +22,7 @@ PUT _template/template_1
                    "match": "*",
                    "match_mapping_type": "string",
                    "mapping": {
-                       "type": "string",
-                       "index": "not_analyzed"
+                       "type": "keyword"
                    }
                }
            }
