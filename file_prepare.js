@@ -1,6 +1,6 @@
 const indexer = require('./indexer');
 
-const dateToFetch= '20180119';
+const dateToFetch= '20180117';
 const ZIP_DIR = `./samples`;
 
 const AdmZip = require('adm-zip'),

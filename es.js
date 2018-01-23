@@ -1,7 +1,7 @@
 const elasticsearch = require('elasticsearch');
 const _  = require ('lodash');
 
-const sendThreshhold = 2000;
+const sendThreshhold = 5000;
 const timerThreshold = 10000;
 
 class esIndexer {
@@ -41,7 +41,7 @@ class esIndexer {
         this.client.bulk({
             body: batch.bulkData
         }, function (err, resp) {
-		    console.dir(`Arrived. Took: ${resp.took}ms. Errors: ${resp.errors}. Items: ${resp.items.length}`, {colors: true, depth: null});
+		    console.dir(`Indexed ${resp.errors ? 'WITH ERRORS' : 'successfully'}. Took: ${resp.took}ms. Items: ${resp.items.length}`, {colors: true, depth: null});
 		    // console.dir(resp, {colors: true, depth: null});
 
             if(err || !resp || !resp.items || resp.items.length !== batch.callbacks.length) {
@@ -86,30 +86,7 @@ class esIndexer {
         return this._batches[this._batches.length-1].callbacks.length;
     }
 
-    //validateIndex(callback) {
-    //    var that = this;
-    //    this.client.indices.exists({index: that._index},function(err, exists){
-    //        if(err){
-    //            console.log("quit...");
-    //            return;
-    //        }
-    //        if(!exists){
-    //            console.info('This is the first run. Create the index');
-    //            that.client.indices.create({index: that._index, body:{mappings:that._mappings}},function(err, indexCreated){
-    //                console.info(JSON.stringify(indexCreated));
-    //                callback();
-    //            });
-    //        }
-    //        else {
-    //            console.log("INDEX EXISTS");
-    //            // TODO: update mapping
-    //            callback();
-    //        }
-    //    });
-    //}
     indexDoc(data,callback) {
-	    // console.dir(data, {colors: true, depth: null});
-
         this._batches[this._batches.length-1].bulkData.push(this._action,data);
         this._batches[this._batches.length-1].callbacks.push(callback);
         if(this._queueLength() >=  sendThreshhold){
@@ -119,56 +96,3 @@ class esIndexer {
 };
 
 module.exports = esIndexer;
-
-//Index setup via sense:
-//PUT _template/template_1
-//{
-//    "template": "*",
-//    "order" : 0,
-//    "settings": {
-//    "index.number_of_shards": 1
-//},
-//    "mappings": {
-//    "_default_": {
-//        "dynamic_templates": [
-//            {
-//                "notanalyzed": {
-//                    "match": "*",
-//                    "match_mapping_type": "string",
-//                    "mapping": {
-//                        "type": "string",
-//                        "index": "not_analyzed"
-//                    }
-//                }
-//            }
-//        ]
-//    }
-//}
-//}
-//DELETE elastic_gdelt
-//
-//PUT /elastic_gdelt
-//{
-//    "mappings": {
-//    "event": {
-//        "properties": {
-//            "ActionGeo_Location": {
-//                "type": "geo_point"
-//            },
-//            "Actor1Geo_Location": {
-//                "type": "geo_point"
-//            },
-//            "Actor2Geo_Location": {
-//                "type": "geo_point"
-//            },
-//            "DATEADDED" : {
-//                "type":"date",
-//                    "format": "yyyy-MM-dd"
-//            }
-//        }
-//    }
-//}
-//}
-//
-//
-//GET _cat/indices?v
