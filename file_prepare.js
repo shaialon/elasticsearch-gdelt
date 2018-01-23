@@ -1,7 +1,7 @@
 "use strict";
 
 const dateToFetch= '20180122';
-const ZIP_DIR = `./zips`;
+const ZIP_DIR = `./samples`;
 
 const AdmZip = require('adm-zip'),
         http = require('http'),
@@ -13,7 +13,7 @@ const url = `http://data.gdeltproject.org/events/${dateToFetch}.export.CSV.zip`,
 
 const unzipFile = function(){
     var zip = new AdmZip(zipName);
-    zip.extractAllTo("./zips", true);
+    zip.extractAllTo(ZIP_DIR, true);
 
     fs.unlink(zipName, function(err){
         if (err) throw err;

@@ -8,10 +8,10 @@ const fs = require('fs'),
       esIndexer = require('./es.js'),
       concurrency = 10000;
 
+const ZIP_DIR = `samples`;
 
-
-const indexName = '20151028';
-const input = fs.createReadStream(__dirname+'/samples/'+indexName+'.export.CSV');
+const indexName = '20180122';
+const input = fs.createReadStream(__dirname+`/${ZIP_DIR}/`+indexName+'.export.CSV');
 
 const indexer = new esIndexer({_index: 'elastic_gdelt', _type: 'event'});
 const parser = parse({delimiter: '\t'});
