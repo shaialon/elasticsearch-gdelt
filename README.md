@@ -4,13 +4,13 @@
 <img src="https://user-images.githubusercontent.com/3126207/35305518-33f26a60-00a2-11e8-991c-c6b465ef7971.png">
 ===
 ## Setup
-### 1.
+### 1. Install Elastic
 Download and Run ElasticSearch 6.x from https://www.elastic.co/downloads/elasticsearch
 Download and Run Kibana 6.x from https://www.elastic.co/downloads/kibana
 
-### 2.
+### 2. Set up index mapping
 In Kibana dev console: http://localhost:5601/app/kibana#/dev_tools/console?_g=(), set up an index template.
-This basically tells elastic that by default, we're no looking to analyze any strings for full text search.
+This basically tells elastic that by default, we're not looking to analyze any strings for full text search.
 
 ```curl
 PUT _template/template_1
@@ -90,3 +90,17 @@ And apparently it needs a reset. This solves it (https://github.com/elastic/kiba
 ```curl
 curl -XPUT -H "Content-Type: application/json" https://[YOUR_ELASTICSEARCH_ENDPOINT]:9200/_all/_settings -d '{"index.blocks.read_only_allow_delete": null}'
 ```
+
+### 3. Add Gdelt data
+```
+npm install
+```
+
+Then download and index the events. It's hardcoded to `20180117` (17 Jan 2018), but can use any date(s) in GDELT.
+```
+npm run download
+```
+
+### 4. Build a cool dashboard with Kibana
+I leave this up to you as I didn't have time to properly export the kibana data.
+Would be cool to see usage with the elasticsearch graph features and significant terms aggregations.
